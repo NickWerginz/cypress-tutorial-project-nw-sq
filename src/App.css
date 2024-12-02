@@ -5,58 +5,171 @@
 }
 
 body {
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: "Roboto", Arial, sans-serif;
   line-height: 1.4;
-  color: #444;
-  background: #fff;
-  height: 100vh;
+  background: linear-gradient(135deg, #eceff1, #cfd8dc);
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.form-container {
-  width: 100%;
-  margin-bottom: 20px;
+/* Container Styling */
+.container {
+  max-width: 700px;
+  width: 90%;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 10px auto;
   display: flex;
-  border-radius: calc(0.5 * 100px);
-  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.38);
-  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+/* Header Styling */
+header h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #455a64;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Input Form Styling */
+.form-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .input-text {
+  flex: 1;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #cfd8dc;
   font-size: 1rem;
-  font-weight: 400;
-  width: 85%;
-  padding-right: 5px;
-  padding-left: 10px;
-  border-radius: calc(0.5 * 100px);
+  background: #f7f9fa;
+  transition: all 0.3s ease;
 }
 
-.input-text::placeholder {
-  color: #000;
-}
-
-.input-submit {
-  background: transparent;
-  color: #5b5b5b;
-  text-transform: capitalize;
-  cursor: pointer;
-  font-weight: 600;
-  margin-right: 10px;
-}
-
-.input-text,
-.input-submit {
-  height: 45px;
+.input-text:focus {
+  border-color: #607d8b;
   outline: none;
+  background: #ffffff;
+}
+
+.select-field {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #cfd8dc;
+  font-size: 1rem;
+  background: #f7f9fa;
+}
+
+.input-submit {
+  padding: 10px 15px;
+  border-radius: 8px;
+  background: #607d8b;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
 }
 
-.input-submit svg {
-  color: darkcyan;
-  font-size: 20px;
-  margin-top: 2px;
+.input-submit:hover {
+  background: #455a64;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto !important;
+/* Todo List Styling */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  padding: 15px 20px;
+  margin: 10px 0;
+  border-radius: 8px;
+  background: #eceff1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.item:hover {
+  background: #cfd8dc;
+}
+
+.item span {
+  flex: 1;
+  margin-left: 10px;
+  font-size: 1rem;
+  color: #455a64;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.item .badge {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 5px 10px;
+  margin-left: 10px;
+  text-transform: capitalize;
+}
+
+.item .badge.high {
+  background: #d32f2f;
+}
+
+.item .badge.medium {
+  background: #ffa000;
+}
+
+.item .badge.low {
+  background: #388e3c;
+}
+
+.item button {
+  background: transparent;
+  border: none;
+  color: #d32f2f;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.item button:hover {
+  transform: scale(1.2);
+  color: #b71c1c;
+}
+
+/* Due Date Styling */
+.item .due-date {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #607d8b;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+/* Checkbox Styling */
+.checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: #455a64;
 }
