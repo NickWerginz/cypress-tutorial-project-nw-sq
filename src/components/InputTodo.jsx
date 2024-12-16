@@ -70,7 +70,11 @@ const InputTodo = (props) => {
             name="dueDate"
             onChange={onChange}
         />
-        <button data-set="add-todo-btn" className="input-submit">
+        <button
+            data-set="add-todo-btn"
+            className="input-submit"
+            style={{ backgroundColor: "#4CAF50", color: "#fff" }} // Primäre grüne Farbe
+        >
           <FaPlusCircle />
         </button>
       </form>

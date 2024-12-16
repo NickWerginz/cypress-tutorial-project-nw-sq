@@ -4,75 +4,75 @@ import { FaTrash } from "react-icons/fa";
 import styles from "./TodoItem.module.css";
 
 const TodoItem = (props) => {
-  const [editing, setEditing] = useState(false);
+    const [editing, setEditing] = useState(false);
 
-  const handleEditing = () => {
-    setEditing(true);
-  };
+    const handleEditing = () => {
+        setEditing(true);
+    };
 
-  const handleUpdatedDone = (event) => {
-    if (event.key === "Enter") {
-      setEditing(false);
+    const handleUpdatedDone = (event) => {
+        if (event.key === "Enter") {
+            setEditing(false);
+        }
+    };
+
+    const completedStyle = {
+        fontStyle: "italic",
+        color: "#a9a9a9", // Grautöne für abgeschlossene Aufgaben
+        opacity: 0.6,
+        textDecoration: "line-through",
+    };
+
+    const { completed, id, title, priority } = props.todo;
+
+    const viewMode = {};
+    const editMode = {};
+
+    if (editing) {
+        viewMode.display = "none";
+    } else {
+        editMode.display = "none";
     }
-  };
 
-  const completedStyle = {
-    fontStyle: "italic",
-    color: "#595959",
-    opacity: 0.4,
-    textDecoration: "line-through",
-  };
+    useEffect(
+        () => () => {
+            console.log("Cleaning up...");
+        },
+        []
+    );
 
-  const { completed, id, title, priority } = props.todo;
-
-  const viewMode = {};
-  const editMode = {};
-
-  if (editing) {
-    viewMode.display = "none";
-  } else {
-    editMode.display = "none";
-  }
-
-  useEffect(
-      () => () => {
-        console.log("Cleaning up...");
-      },
-      []
-  );
-
-  return (
-      <li className={styles.item} data-type="todo-item">
-        <div onDoubleClick={handleEditing} style={viewMode}>
-          <input
-              type="checkbox"
-              className={styles.checkbox}
-              checked={completed}
-              onChange={() => props.handleChangeProps(id)}
-              name="checkbox"
-          />
-          <button
-              data-set="delete-todo-btn"
-              onClick={() => props.deleteTodoProps(id)}
-          >
-            <FaTrash style={{ color: "orangered", fontSize: "16px" }} />
-          </button>
-          <span style={completed ? completedStyle : null}>{title}</span>
-          {/* Hier wird die Priorität angezeigt */}
-          <span className={styles.priority}>Priority: {priority}</span>
-        </div>
-        <input
-            type="text"
-            style={editMode}
-            className={styles.textInput}
-            value={title}
-            onChange={(e) => {
-              props.setUpdate(e.target.value, id);
-            }}
-            onKeyDown={handleUpdatedDone}
-        />
-      </li>
-  );
+    return (
+        <li className={styles.item} data-type="todo-item">
+            <div onDoubleClick={handleEditing} style={viewMode}>
+                <input
+                    type="checkbox"
+                    className={styles.checkbox}
+                    checked={completed}
+                    onChange={() => props.handleChangeProps(id)}
+                    name="checkbox"
+                />
+                <button
+                    data-set="delete-todo-btn"
+                    onClick={() => props.deleteTodoProps(id)}
+                    style={{ backgroundColor: "#f0f0f0", color: "#888" }} // Sekundäre Grautöne für den Löschen-Button
+                >
+                    <FaTrash style={{ color: "orangered", fontSize: "16px" }} />
+                </button>
+                <span style={completed ? completedStyle : null}>{title}</span>
+                <span className={styles.priority}>Priority: {priority}</span>
+            </div>
+            <input
+                type="text"
+                style={editMode}
+                className={styles.textInput}
+                value={title}
+                onChange={(e) => {
+                    props.setUpdate(e.target.value, id);
+                }}
+                onKeyDown={handleUpdatedDone}
+            />
+        </li>
+    );
 };
 
 export default TodoItem;
