@@ -23,7 +23,7 @@ const TodoItem = (props) => {
     textDecoration: "line-through",
   };
 
-  const { completed, id, title } = props.todo;
+  const { completed, id, title, priority } = props.todo;
 
   const viewMode = {};
   const editMode = {};
@@ -35,41 +35,43 @@ const TodoItem = (props) => {
   }
 
   useEffect(
-    () => () => {
-      console.log("Cleaning up...");
-    },
-    []
+      () => () => {
+        console.log("Cleaning up...");
+      },
+      []
   );
 
   return (
-    <li className={styles.item} data-type="todo-item">
-      <div onDoubleClick={handleEditing} style={viewMode}>
+      <li className={styles.item} data-type="todo-item">
+        <div onDoubleClick={handleEditing} style={viewMode}>
+          <input
+              type="checkbox"
+              className={styles.checkbox}
+              checked={completed}
+              onChange={() => props.handleChangeProps(id)}
+              name="checkbox"
+          />
+          <button
+              data-set="delete-todo-btn"
+              onClick={() => props.deleteTodoProps(id)}
+          >
+            <FaTrash style={{ color: "orangered", fontSize: "16px" }} />
+          </button>
+          <span style={completed ? completedStyle : null}>{title}</span>
+          {/* Hier wird die Priorität angezeigt */}
+          <span className={styles.priority}>Priority: {priority}</span>
+        </div>
         <input
-          type="checkbox"
-          className={styles.checkbox}
-          checked={completed}
-          onChange={() => props.handleChangeProps(id)}
-          name="checkbox"
+            type="text"
+            style={editMode}
+            className={styles.textInput}
+            value={title}
+            onChange={(e) => {
+              props.setUpdate(e.target.value, id);
+            }}
+            onKeyDown={handleUpdatedDone}
         />
-        <button
-          data-set="delete-todo-btn"
-          onClick={() => props.deleteTodoProps(id)}
-        >
-          <FaTrash style={{ color: "orangered", fontSize: "16px" }} />
-        </button>
-        <span style={completed ? completedStyle : null}>{title}</span>
-      </div>
-      <input
-        type="text"
-        style={editMode}
-        className={styles.textInput}
-        value={title}
-        onChange={(e) => {
-          props.setUpdate(e.target.value, id);
-        }}
-        onKeyDown={handleUpdatedDone}
-      />
-    </li>
+      </li>
   );
 };
 
