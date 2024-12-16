@@ -41,6 +41,14 @@ const TodoItem = (props) => {
         []
     );
 
+    // Dynamische Prioritätsfarbe basierend auf dem Wert
+    const priorityColor = (priority) => {
+        if (priority === "High") return "#FF6347"; // Rot für hohe Priorität
+        if (priority === "Medium") return "#FFD700"; // Gelb für mittlere Priorität
+        if (priority === "Low") return "#32CD32"; // Grün für niedrige Priorität
+        return "#000"; // Standardfarbe
+    };
+
     return (
         <li className={styles.item} data-type="todo-item">
             <div onDoubleClick={handleEditing} style={viewMode}>
@@ -59,7 +67,13 @@ const TodoItem = (props) => {
                     <FaTrash style={{ color: "orangered", fontSize: "16px" }} />
                 </button>
                 <span style={completed ? completedStyle : null}>{title}</span>
-                <span className={styles.priority}>Priority: {priority}</span>
+                {/* Priorität mit dynamischer Farbe */}
+                <span
+                    className={styles.priority}
+                    style={{ backgroundColor: priorityColor(priority) }}
+                >
+          Priority: {priority}
+        </span>
             </div>
             <input
                 type="text"
