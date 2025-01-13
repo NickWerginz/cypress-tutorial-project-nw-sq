@@ -1,75 +1,76 @@
-import { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
-import Header from "./Header";
+import React, { useState } from "react";
 import InputTodo from "./InputTodo";
-import TodosList from "./TodosList";
-import styles from "./TodoContainer.module.css";
+import TodoItem from "./TodoItem";
 
 const TodoContainer = () => {
-    const getInitialTodos = () => {
-        const temp = localStorage.getItem("todos");
-        const savedTodos = JSON.parse(temp);
-        return savedTodos || [];
-    };
+    const [todos, setTodos] = useState([]);
 
-    const [todos, setTodos] = useState(getInitialTodos());
-
-    const handleChange = (id) => {
-        setTodos((prevState) =>
-            prevState.map((todo) => {
-                if (todo.id === id) {
-                    return {
-                        ...todo,
-                        completed: !todo.completed,
-                    };
-                }
-                return todo;
-            })
-        );
-    };
-
-    const delTodo = (id) => {
-        setTodos([...todos.filter((todo) => todo.id !== id)]);
-    };
-
-    const addTodoItem = (title, priority, category, dueDate) => {
+    // Funktion zum Hinzufügen von Todos
+    const addTodo = (title, priority, category, dueDate) => {
         const newTodo = {
-            id: uuidv4(),
+            id: new Date().getTime(),
             title,
+            completed: false,
             priority,
             category,
             dueDate,
-            completed: false,
         };
-        setTodos([...todos, newTodo]);
+        setTodos((prevTodos) => [...prevTodos, newTodo]);
     };
 
-    const setUpdate = (updatedTitle, id) => {
-        setTodos(
-            todos.map((todo) => {
-                if (todo.id === id) {
-                    todo.title = updatedTitle;
-                }
-                return todo;
-            })
+    // Funktion zum Ändern des Status (completed)
+    const handleChange = (id) => {
+        setTodos((prevTodos) =>
+            prevTodos.map((todo) =>
+                todo.id === id ? { ...todo, completed: !todo.completed } : todo
+            )
         );
     };
 
-    useEffect(() => {
-        const temp = JSON.stringify(todos);
-        localStorage.setItem("todos", temp);
-    }, [todos]);
+    // Funktion zum Löschen eines Todos
+    const deleteTodo = (id) => {
+        setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+    };
+
+    // Funktion zum Aktualisieren des Titels
+    const setUpdate = (updatedTitle, id) => {
+        setTodos((prevTodos) =>
+            prevTodos.map((todo) =>
+                todo.id === id ? { ...todo, title: updatedTitle } : todo
+            )
+        );
+    };
+
+    // Funktion zum Aktualisieren der Priorität
+    const updatePriority = (id, newPriority) => {
+        setTodos((prevTodos) =>
+            prevTodos.map((todo) =>
+                todo.id === id ? { ...todo, priority: newPriority } : todo
+            )
+        );
+    };
+
+    // Todos sortieren
+    const sortedTodos = todos.sort((a, b) => {
+        const priorityOrder = { High: 1, Medium: 2, Low: 3 };
+        return priorityOrder[a.priority] - priorityOrder[b.priority];
+    });
 
     return (
-        <div className={styles.inner}>
-            <Header />
-            <InputTodo addTodoProps={addTodoItem} />
-            <TodosList
-                todos={todos}
-                handleChangeProps={handleChange}
-                deleteTodoProps={delTodo}
-                setUpdate={setUpdate}
-            />
+        <div>
+            <InputTodo addTodoProps={addTodo} />
+            <ul>
+                {sortedTodos.map((todo) => (
+                    <TodoItem
+                        key={todo.id}
+                        todo={todo}
+                        handleChangeProps={handleChange}
+                        deleteTodoProps={deleteTodo}
+                        setUpdate={setUpdate}
+                        updatePriorityProps={updatePriority}
+                    />
+                ))}
+            </ul>
         </div>
     );
 };

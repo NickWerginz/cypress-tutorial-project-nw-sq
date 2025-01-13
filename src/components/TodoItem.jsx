@@ -18,7 +18,7 @@ const TodoItem = (props) => {
 
     const completedStyle = {
         fontStyle: "italic",
-        color: "#a9a9a9", // Grautöne für abgeschlossene Aufgaben
+        color: "#a9a9a9",
         opacity: 0.6,
         textDecoration: "line-through",
     };
@@ -43,9 +43,9 @@ const TodoItem = (props) => {
 
     // Dynamische Prioritätsfarbe basierend auf dem Wert
     const priorityColor = (priority) => {
-        if (priority === "High") return "#FF6347"; // Rot für hohe Priorität
-        if (priority === "Medium") return "#FFD700"; // Gelb für mittlere Priorität
-        if (priority === "Low") return "#32CD32"; // Grün für niedrige Priorität
+        if (priority === "High") return "#FF6347"; // Rot
+        if (priority === "Medium") return "#FFD700"; // Gelb
+        if (priority === "Low") return "#32CD32"; // Grün
         return "#000"; // Standardfarbe
     };
 
@@ -62,7 +62,7 @@ const TodoItem = (props) => {
                 <button
                     data-set="delete-todo-btn"
                     onClick={() => props.deleteTodoProps(id)}
-                    style={{ backgroundColor: "#f0f0f0", color: "#888" }} // Sekundäre Grautöne für den Löschen-Button
+                    style={{ backgroundColor: "#f0f0f0", color: "#888" }}
                 >
                     <FaTrash style={{ color: "orangered", fontSize: "16px" }} />
                 </button>
@@ -74,6 +74,16 @@ const TodoItem = (props) => {
                 >
           Priority: {priority}
         </span>
+                {/* Dropdown zum Ändern der Priorität */}
+                <select
+                    value={priority}
+                    onChange={(e) => props.updatePriorityProps(id, e.target.value)}
+                    className={styles.priorityDropdown}
+                >
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
             </div>
             <input
                 type="text"
