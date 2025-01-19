@@ -50,7 +50,7 @@ const TodoItem = (props) => {
     };
 
     return (
-        <li className={styles.item} data-type="todo-item">
+        <li className={styles.item} data-test="todo-list"> {/* Hier wurde data-test="todo-list" hinzugefügt */}
             <div onDoubleClick={handleEditing} style={viewMode}>
                 <input
                     type="checkbox"
@@ -60,7 +60,7 @@ const TodoItem = (props) => {
                     name="checkbox"
                 />
                 <button
-                    data-set="delete-todo-btn"
+                    data-test="delete-todo-btn"
                     onClick={() => props.deleteTodoProps(id)}
                     style={{ backgroundColor: "#f0f0f0", color: "#888" }}
                 >

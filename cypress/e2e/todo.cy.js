@@ -33,15 +33,17 @@ describe("todo tests", () => {
   });
 
   it("should delete a todo", () => {
-    cy.get('[data-set="todo-form"] input[name = "title"]').type(
-      "Watch a movie"
-    );
-    cy.get('[data-set = "add-todo-btn"]').should("exist").click();
+    // 1. Ein Todo hinzufügen
+    cy.get('[data-set="todo-form"] input[name="title"]').type("Watch a movie");
+    cy.get('[data-set="add-todo-btn"]').click();
+
+    // 2. Sicherstellen, dass das Todo hinzugefügt wurde
     cy.contains("Watch a movie").should("exist");
 
-    cy.get('[data-set="todo-list"] [data-set="delete-todo-btn"]')
-      .should("exist")
-      .click();
+    // 3. Todo löschen
+    cy.get('[data-set="todo-list"] [data-set="delete-todo-btn"]').click();
+
+    // 4. Sicherstellen, dass das Todo gelöscht wurde
     cy.contains("Watch a movie").should("not.exist");
   });
 });
