@@ -1,0 +1,68 @@
+name: Frontend CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main # Pipeline wird bei jedem Commit auf der "main"-Branch ausgelöst
+
+jobs:
+  build_and_test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Repository klonen
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # 2. Node.js einrichten
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16 # Stelle sicher, dass die Node.js-Version mit deinem Projekt kompatibel ist
+
+      # 3. Abhängigkeiten installieren
+      - name: Install Dependencies
+        run: npm install
+
+      # 4. Linting ausführen
+      - name: Lint Code
+        run: npm run lint
+
+      # 5. Tests ausführen
+      - name: Run Tests
+        run: npm test
+
+      # 6. Build erstellen
+      - name: Build Project
+        run: npm run build
+
+      # 7. Build-Artefakte hochladen
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-build
+          path: build/
+
+  deploy:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: build_and_test
+
+    steps:
+      # 1. Repository klonen
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # 2. Build-Artefakte herunterladen
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: frontend-build
+          path: build/
+
+      # 3. Deployment auf Staging-Server simulieren
+      - name: Echo Deployment Message
+        run: echo "Deploying Frontend to Staging Environment"
+        env:
+          STAGING_URL: ${{ secrets.STAGING_URL }}
