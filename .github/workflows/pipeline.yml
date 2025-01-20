@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16 # Stelle sicher, dass die Node.js-Version mit deinem Projekt kompatibel ist
+          node-version: 16 # Richtige Node Version
 
       # 3. Abhängigkeiten installieren
       - name: Install Dependencies
@@ -61,7 +61,7 @@ jobs:
           name: frontend-build
           path: build/
 
-      # 3. Deployment auf Staging-Server simulieren
+      # 3. Deployment
       - name: Echo Deployment Message
         run: echo "Deploying Frontend to Staging Environment"
         env:
