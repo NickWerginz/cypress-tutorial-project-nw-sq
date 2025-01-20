@@ -5,7 +5,7 @@ const InputTodo = (props) => {
   const [inputText, setInputText] = useState({
     title: "",
     priority: "Medium", // Default value
-    category: "",
+    category: "Privat", // Default category
     dueDate: "",
   });
 
@@ -19,11 +19,16 @@ const InputTodo = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputText.title.trim()) {
-      props.addTodoProps(inputText.title, inputText.priority, inputText.category, inputText.dueDate);
+      props.addTodoProps(
+          inputText.title,
+          inputText.priority,
+          inputText.category,
+          inputText.dueDate
+      );
       setInputText({
         title: "",
         priority: "Medium",
-        category: "",
+        category: "Privat",
         dueDate: "",
       });
     } else {
@@ -36,7 +41,15 @@ const InputTodo = (props) => {
           data-set="todo-form"
           onSubmit={handleSubmit}
           className="form-container"
+          style={{
+            display: "flex",
+            gap: "10px",
+            alignItems: "center",
+            padding: "10px 0",
+            borderBottom: "1px solid #ddd",
+          }}
       >
+        {/* Titel-Eingabefeld */}
         <input
             type="text"
             className="input-text"
@@ -44,36 +57,80 @@ const InputTodo = (props) => {
             value={inputText.title}
             name="title"
             onChange={onChange}
+            style={{
+              flex: 2,
+              padding: "8px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+            }}
         />
+
+        {/* Priorität-Dropdown */}
         <select
             name="priority"
             value={inputText.priority}
             onChange={onChange}
             className="input-text"
+            style={{
+              flex: 1,
+              padding: "8px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              backgroundColor: "#f9f9f9",
+            }}
         >
           <option value="High">High</option>
           <option value="Medium">Medium</option>
           <option value="Low">Low</option>
         </select>
-        <input
-            type="text"
-            className="input-text"
-            placeholder="Category"
-            value={inputText.category}
+
+        {/* Kategorie-Dropdown */}
+        <select
             name="category"
+            value={inputText.category}
             onChange={onChange}
-        />
+            className="input-text"
+            style={{
+              flex: 1,
+              padding: "8px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              backgroundColor: "#f9f9f9",
+            }}
+        >
+          <option value="Privat">Privat</option>
+          <option value="Arbeit">Arbeit</option>
+          <option value="Sonstiges">Sonstiges</option>
+        </select>
+
+        {/* Fälligkeitsdatum */}
         <input
             type="date"
             className="input-text"
             value={inputText.dueDate}
             name="dueDate"
             onChange={onChange}
+            style={{
+              flex: 1,
+              padding: "8px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+            }}
         />
+
+        {/* Hinzufügen-Button */}
         <button
             data-set="add-todo-btn"
             className="input-submit"
-            style={{ backgroundColor: "#4CAF50", color: "#fff" }} // Primäre grüne Farbe
+            style={{
+              flex: 0.5,
+              padding: "8px",
+              backgroundColor: "#4CAF50",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
         >
           <FaPlusCircle />
         </button>
