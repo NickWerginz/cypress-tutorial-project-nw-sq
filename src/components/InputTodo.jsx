@@ -19,6 +19,7 @@ const InputTodo = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputText.title.trim()) {
+        // eslint-disable-next-line react/prop-types
       props.addTodoProps(
           inputText.title,
           inputText.priority,

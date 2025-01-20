@@ -23,6 +23,8 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+// eslint-disable-next-line no-undef
 Cypress.Commands.add("getDataTest", (dataTestSelector) => {
+  // eslint-disable-next-line no-undef
   return cy.get(`[data-test = "${dataTestSelector}"]`);
 });
