@@ -64,7 +64,6 @@ const TodoItem = (props) => {
     };
 
     return (
-<<<<<<< HEAD
         <li
             className={styles.item}
             data-type="todo-item"
@@ -72,10 +71,6 @@ const TodoItem = (props) => {
         >
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 {/* Checkbox */}
-=======
-        <li className={styles.item} data-test="todo-list"> {/* Hier wurde data-test="todo-list" hinzugefügt */}
-            <div onDoubleClick={handleEditing} style={viewMode}>
->>>>>>> 0c8fa05ccc08a5bb119d1e6e5308a6f84709e3cc
                 <input
                     type="checkbox"
                     className={styles.checkbox}
@@ -179,7 +174,7 @@ const TodoItem = (props) => {
 
                 {/* Löschen-Button */}
                 <button
-                    data-test="delete-todo-btn"
+                    data-set="delete-todo-btn"
                     onClick={() => props.deleteTodoProps(id)}
                     style={{
                         backgroundColor: "#f8f8f8",
